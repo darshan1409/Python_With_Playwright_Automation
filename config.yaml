@@ -1,0 +1,64 @@
+# Central environment configuration for UI + DB automation
+# Usage: tests will load this YAML and pick ENV -> section (default from ENV variable or 'QA')
+
+DEFAULT_ENV: QA  # DEV | QA | PROD
+
+ENVIRONMENTS:
+  DEV:
+    UI:
+      BASE_URL: "https://dev.example.com"
+      USEREMAIL: "dev_automation_user@example.com"
+      PASSWORD: "DEV_PASSWORD_PLACEHOLDER"
+      HEADLESS: false
+      BROWSER: "chromium"   # chromium|firefox|webkit
+      TRACE: on-first-retry   # off|on|retain-on-failure|on-first-retry
+    DB:
+      DB_TYPE: "mssql"
+      HOST: "dev-db.example.com"
+      PORT: 1433
+      DATABASE: "DevAppDB"
+      USER: "dev_db_user"
+      PASSWORD: "DEV_DB_PASSWORD_PLACEHOLDER"
+      TRUST_CERT: true
+  QA:
+    UI:
+      BASE_URL: "https://demoqa.com/"
+      USEREMAIL: "qa_automation_user@example.com"
+      PASSWORD: "QA_PASSWORD_PLACEHOLDER"
+      HEADLESS: false
+      BROWSER: "firefox"
+      TRACE: retain-on-failure
+    DB:
+      DB_TYPE: "mssql"
+      HOST: "qa-db.example.com"
+      PORT: 1433
+      DATABASE: "QaAppDB"
+      USER: "qa_db_user"
+      PASSWORD: "QA_DB_PASSWORD_PLACEHOLDER"
+      TRUST_CERT: true
+  PROD:
+    UI:
+      BASE_URL: "https://prod.example.com"
+      USEREMAIL: "prod_automation_user@example.com"
+      PASSWORD: "PROD_PASSWORD_SECURE_REF"
+      HEADLESS: true
+      BROWSER: "webkit"
+      TRACE: off
+    DB:
+      DB_TYPE: "mssql"
+      HOST: "prod-db.example.com"
+      PORT: 1433
+      DATABASE: "ProdAppDB"
+      USER: "prod_db_user"
+      PASSWORD: "PROD_DB_PASSWORD_SECURE_REF"
+      TRUST_CERT: true
+
+# Optional shared settings (timeouts, retries) to be referenced by framework
+SETTINGS:
+  PLAYWRIGHT:
+    TIMEOUT_MS: 30000
+    EXPECT_TIMEOUT_MS: 5000
+    RETRIES: 1
+  DB:
+    CONNECT_TIMEOUT_SEC: 10
+    QUERY_TIMEOUT_SEC: 30
