@@ -1,0 +1,5 @@
+{
+  "COUNT_USERS": "SELECT COUNT(*) FROM Users;",
+  "SELECT_TOP_USER": "SELECT TOP 1 Id, FirstName, LastName FROM Users ORDER BY Id;",
+  "SELECT_TOP_USER_EMAIL": "SELECT TOP 1 Id, Email FROM Users ORDER BY Id;"
+}
