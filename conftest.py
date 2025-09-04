@@ -3,6 +3,7 @@ import pytest
 from datetime import datetime
 
 from utils.config import load_config
+from utils.login_fixture import login  # noqa: F401  (register login fixture globally)
 
 try:
     from playwright.sync_api import sync_playwright
@@ -14,6 +15,28 @@ try:
     import pyodbc  # type: ignore
 except ImportError:  # pragma: no cover
     pyodbc = None  # type: ignore
+
+
+def pytest_addoption(parser):
+    """Register custom CLI options; ignore if another plugin already defined one."""
+    def safe(opt, **kwargs):
+        try:
+            parser.addoption(opt, **kwargs)
+        except Exception:
+            pass  # conflict: keep existing definition
+
+    safe("--env", action="store", help="Environment: DEV|QA|PROD")
+    safe("--base_url", action="store")
+    safe("--useremail", action="store")
+    safe("--password", action="store")
+    # Omit --browser / --headless / --trace here to avoid conflicts with pytest-playwright plugin.
+    # DB overrides
+    safe("--db_host", action="store")
+    safe("--db_port", action="store")
+    safe("--db_name", action="store")
+    safe("--db_user", action="store")
+    safe("--db_password", action="store")
+    safe("--db_trust_cert", action="store", help="true/false")
 
 
 @pytest.fixture(scope="session")
