@@ -10,7 +10,7 @@ ENVIRONMENTS:
       USEREMAIL: "dev_automation_user@example.com"
       PASSWORD: "DEV_PASSWORD_PLACEHOLDER"
       HEADLESS: false
-      BROWSER: "chromium"   # chromium|firefox|webkit
+      BROWSER: "jsdfjsdnjds"   # chromium|firefox|webkit
       TRACE: on-first-retry   # off|on|retain-on-failure|on-first-retry
     DB:
       DB_TYPE: "mssql"
